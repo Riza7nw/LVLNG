@@ -2,22 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public abstract class BaseCharacter : MonoBehaviour
 {
-    Rigidbody2D rb;
-    Animator anim;
-    bool facingRight = true;
-    float speed = 5f;
+    protected Rigidbody2D rb;
+    protected Animator anim;
+    protected bool facingRight = true;
+    protected bool isGrounded = true;
 
-    public float jumpForce = 5f; // Kekuatan lompatan
-    private bool isGrounded;
+    public float speed = 5f;
+    public float jumpForce = 5f;
 
-    void Start()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        // Debugging untuk memastikan Rigidbody2D dan Animator ditemukan
         if (rb == null)
         {
             Debug.LogError("Rigidbody2D tidak ditemukan! Tambahkan Rigidbody2D ke GameObject ini.");
@@ -28,77 +27,95 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        // Input speed (Shift untuk lari)
-        if (Input.GetKey(KeyCode.LeftShift))
-            speed = 5f;
-        else
-            speed = 2f;
-
-        // Input lompat
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            float horizontalInput = Input.GetAxisRaw("Horizontal");
-            rb.AddForce(new Vector2(horizontalInput * jumpForce, jumpForce), ForceMode2D.Impulse);
-            isGrounded = false;
-        }
-    }
-
-    void FixedUpdate()
+    protected virtual void Update()
     {
         // Gerakan horizontal
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        float moveInput = GetHorizontalInput();
+        Move(moveInput);
 
-        // Flip karakter berdasarkan input
-        if (moveInput > 0 && !facingRight)
+        // Input lompat
+        if (IsJumpPressed() && isGrounded)
         {
-            Flip();
-        }
-        else if (moveInput < 0 && facingRight)
-        {
-            Flip();
+            Jump();
         }
 
         // Update animasi
-        AnimationState();
+        UpdateAnimationState(moveInput);
     }
 
-    void Flip()
+    protected virtual void Move(float moveInput)
     {
-        facingRight = !facingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
+        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        Flip(moveInput);
     }
 
-    void AnimationState()
+    protected virtual void Jump()
     {
-        // Reset semua animasi
-        anim.SetBool("isWalking", false);
-        anim.SetBool("isRunning", false);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        isGrounded = false;
+    }
 
-        // Jika karakter bergerak di tanah
-        if (Mathf.Abs(rb.velocity.x) > 0.1f && Mathf.Abs(rb.velocity.y) < 0.1f)
+    protected virtual void Flip(float moveInput)
+    {
+        if (moveInput > 0 && !facingRight)
         {
-            if (speed == 5f) // Jika sedang lari
-                anim.SetBool("isRunning", true);
-            else // Jika sedang jalan
-                anim.SetBool("isWalking", true);
+            facingRight = true;
+            Vector3 localScale = transform.localScale;
+            localScale.x = Mathf.Abs(localScale.x);
+            transform.localScale = localScale;
+        }
+        else if (moveInput < 0 && facingRight)
+        {
+            facingRight = false;
+            Vector3 localScale = transform.localScale;
+            localScale.x = -Mathf.Abs(localScale.x);
+            transform.localScale = localScale;
         }
     }
 
+    protected virtual void UpdateAnimationState(float moveInput)
+    {
+        anim.SetBool("isWalking", Mathf.Abs(moveInput) > 0.1f && isGrounded);
+    }
+
+    protected abstract float GetHorizontalInput();
+    protected abstract bool IsJumpPressed();
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Deteksi apakah player menyentuh tanah
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
-        else
-        {
-            Debug.LogWarning($"Player menyentuh objek tanpa tag 'Ground': {collision.gameObject.name}");
-        }
+    }
+}
+
+public class Player : BaseCharacter
+{
+    protected override float GetHorizontalInput()
+    {
+        return Input.GetAxisRaw("Horizontal");
+    }
+
+    protected override bool IsJumpPressed()
+    {
+        return Input.GetKeyDown(KeyCode.Space);
+    }
+
+    protected override void UpdateAnimationState(float moveInput)
+    {
+        base.UpdateAnimationState(moveInput);
+
+        // Tambahkan logika untuk animasi lari
+        anim.SetBool("isRunning", Mathf.Abs(moveInput) > 0.1f && speed == 5f && isGrounded);
+    }
+
+    protected override void Update()
+    {
+        // Tentukan kecepatan berdasarkan input
+        speed = Input.GetKey(KeyCode.LeftShift) ? 5f : 2f;
+
+        // Panggil logika dari kelas dasar
+        base.Update();
     }
 }
