@@ -1,27 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
-    public int health = 3;
+    public int currentHealth = 3; // Nyawa awal pemain
 
-    public Image[] heaarts;
-    public Sprite fullHeart;
-    public Sprite emptyHeart;
-
-    // Update is called once per frame
-    void Update()
+    public void ReduceHealth(int amount)
     {
-        foreach (Image img in heaarts)
+        currentHealth -= amount;
+        if (currentHealth <= 0)
         {
-            img.sprite = emptyHeart;
+            currentHealth = 0;
+            Debug.Log("Game Over!"); // Tambahkan logika game over jika diperlukan
         }
-        for (int i = 0; i < health; i++)
-        {
-            heaarts[i].sprite = fullHeart;
-        }
-        
     }
 }
