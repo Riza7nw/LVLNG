@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7312924241560611119}
   - component: {fileID: 3207971543622814919}
   - component: {fileID: 6017333650649931548}
-  - component: {fileID: 8212091019129870984}
   m_Layer: 0
   m_Name: Finish Point
   m_TagString: Untagged
@@ -131,15 +130,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8212091019129870984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7065358851117259033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b6c7aa2ee01ee14391b4ac9eb652ef7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
