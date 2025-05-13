@@ -3,28 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    public static SceneController instance;
-
-    private void Awake()
+    public void LoadNextLevel()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        SceneManager.LoadScene("Level 2");
     }
 
-    public void NextLevel1()
+    public void RestartLevel()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadSceneAsync(sceneName);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
