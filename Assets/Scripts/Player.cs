@@ -115,6 +115,12 @@ public class Player : BaseCharacter
         // Tentukan kecepatan berdasarkan input
         speed = Input.GetKey(KeyCode.LeftShift) ? 5f : 2f;
 
+        // Logging input dan update
+        Debug.Log("Update jalan");
+
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        Debug.Log("Input horizontal: " + moveInput);
+
         // Panggil logika dari kelas dasar
         base.Update();
     }
