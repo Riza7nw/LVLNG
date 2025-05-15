@@ -5,11 +5,11 @@ public class SceneController : MonoBehaviour
 {
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene("Level 2");
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
