@@ -3,28 +3,25 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    public static SceneController instance;
-
-    private void Awake()
+    public void LoadNextLevel()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        SceneManager.LoadScene("Level 2");
     }
 
-    public void NextLevel1()
+    public void RestartLevel()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
-    public void LoadScene(string sceneName)
+    // Panggil ini setelah LoadScene
+    void ResetPlayer()
     {
-        SceneManager.LoadSceneAsync(sceneName);
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = new Vector3(0, 0, 0); // Atur ke spawn point sesuai kebutuhan
+            var rb = player.GetComponent<Rigidbody2D>();
+            if (rb != null) rb.velocity = Vector2.zero;
+        }
+        PlayerManager.isGameOver = false; // Reset game over
     }
 }
