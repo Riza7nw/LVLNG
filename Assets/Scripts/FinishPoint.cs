@@ -74,4 +74,16 @@ public class FinishPoint : MonoBehaviour
         Time.timeScale = 1f; // Lanjutkan waktu permainan
         SceneManager.LoadScene("MainMenu"); // Ganti dengan nama scene menu utama Anda
     }
+
+
+    public GameObject nextLevelPanel;
+
+    private void LevelManager(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Time.timeScale = 0f;
+            nextLevelPanel.SetActive(true);
+        }
+    }
 }
