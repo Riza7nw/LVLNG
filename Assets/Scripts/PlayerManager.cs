@@ -5,17 +5,23 @@ public class PlayerManager : MonoBehaviour
 {
     public static bool isGameOver;
     public GameObject gameOverScreen;
-    private void Awake()
+
+    void Awake()
     {
-        isGameOver = false;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        if (players.Length > 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+
+    }
+
     void Update()
     {
         if (isGameOver)
