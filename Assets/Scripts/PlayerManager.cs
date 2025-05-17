@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public static bool isGameOver;
-    public GameObject gameOverScreen;
+    [SerializeField]
+    private GameObject gameOverScreen;
 
     void Awake()
     {
@@ -17,16 +18,14 @@ public class PlayerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         if (isGameOver)
         {
-            gameOverScreen.SetActive(true);
+            if (gameOverScreen != null)
+            {
+                gameOverScreen.SetActive(true);
+            }
         }
     }
 

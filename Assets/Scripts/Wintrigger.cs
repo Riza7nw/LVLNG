@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class WinTrigger : MonoBehaviour
@@ -26,5 +26,12 @@ public class WinTrigger : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    // ✅ Tombol Home ke Menu Utama
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0); // 0 adalah build index untuk Main Menu
     }
 }
