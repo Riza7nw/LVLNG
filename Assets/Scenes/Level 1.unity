@@ -1942,7 +1942,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -723.47, y: -798.95}
+  m_AnchoredPosition: {x: -722.9, y: -798.95}
   m_SizeDelta: {x: 5.200012, y: 1.2999878}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &262304858
@@ -2026,7 +2026,7 @@ SpriteRenderer:
   m_Size: {x: 2.4, y: 1.35}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &282540776
@@ -3661,7 +3661,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4529,7 +4529,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -13.700012, y: -797.3}
+  m_AnchoredPosition: {x: -12.700012, y: -797.3}
   m_SizeDelta: {x: 106.6, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1242189993
@@ -5044,7 +5044,7 @@ Transform:
   m_GameObject: {fileID: 1575031295}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8116, y: -4.45, z: -0.25}
+  m_LocalPosition: {x: 1.8116, y: -4.45, z: -0.98}
   m_LocalScale: {x: 7.6604257, y: 4.020432, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5937,7 +5937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7312924241560611119, guid: 805230eb6cb25224cb6cfb5722df9931, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 7312924241560611119, guid: 805230eb6cb25224cb6cfb5722df9931, type: 3}
       propertyPath: m_LocalRotation.w

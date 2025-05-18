@@ -41,7 +41,7 @@ public class MusicManager : MonoBehaviour
         if (isEnabled)
             musicSource.Play();
         else
-            musicSource.Pause(); // atau Stop()
+            musicSource.Stop(); // atau Stop()
     }
 
     public bool IsMusicPlaying()
